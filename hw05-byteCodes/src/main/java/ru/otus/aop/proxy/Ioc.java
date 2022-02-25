@@ -4,7 +4,12 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import ru.otus.aop.proxy.annotations.Log;
@@ -22,18 +27,16 @@ class Ioc {
 
     static class DemoInvocationHandler implements InvocationHandler {
         private final TestLoggingInterface testLogging;
+        private final Set<MethodInfo> annotatedMethods;
 
         DemoInvocationHandler(TestLoggingInterface testLogging) {
             this.testLogging = testLogging;
+            annotatedMethods = getAnnotatedMethods(testLogging.getClass(), Log.class);
         }
 
         @Override
         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-            Class<? extends Annotation> annotation = Log.class;
-            Class<?> type = testLogging.getClass();
-            var parameters = method.getParameterTypes();
-            var originalMethod = type.getDeclaredMethod(method.getName(), parameters);
-            if (originalMethod.isAnnotationPresent(annotation)) {
+            if (annotatedMethods.contains(new MethodInfo(method))) {
                 System.out.println("executed method: " + method.getName() + " param: " +
                         Arrays.stream(args)
                                 .map(Object::toString)
@@ -41,6 +44,17 @@ class Ioc {
                 );
             }
             return method.invoke(testLogging, args);
+        }
+
+        private HashSet<MethodInfo> getAnnotatedMethods(Class<?> type, Class<? extends Annotation> annotation) {
+            var annotatedMethods = new HashSet<MethodInfo>();
+            for (var method : type.getDeclaredMethods()) {
+                if (method.isAnnotationPresent(annotation)) {
+                    annotatedMethods.add(new MethodInfo(method));
+                }
+            }
+
+            return annotatedMethods;
         }
 
         @Override
