@@ -1,5 +1,6 @@
 package ru.otus.hw06.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,7 +15,7 @@ public class ATMImpl implements ATM {
     private final CashReceiver cashReceiver;
 
     public ATMImpl() {
-        this.cashHolder = new CashHolderImpl();
+        this.cashHolder = new CashHolderImpl(new HashMap<>());
         this.cashExtractor = new MinCountCashExtractor(cashHolder);
         this.cashReceiver = new CashReceiverImpl(cashHolder);
     }

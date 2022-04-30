@@ -21,5 +21,19 @@ public class ATMDemo {
         System.out.println(atm.balance()); //750
         atm.deposit(List.of(ONE_HUNDRED, FIFTY));
         System.out.println(atm.balance()); //900
+
+        try {
+            atm.withdraw(1000);
+        } catch (RuntimeException ignored) {
+
+        }
+        System.out.println(atm.balance()); //900
+
+        try {
+            atm.withdraw(555);
+        } catch (RuntimeException ignored) {
+
+        }
+        System.out.println(atm.balance()); //900
     }
 }

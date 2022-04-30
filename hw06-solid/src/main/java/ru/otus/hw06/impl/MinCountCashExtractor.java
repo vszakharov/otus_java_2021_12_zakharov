@@ -35,15 +35,24 @@ public class MinCountCashExtractor implements CashExtractor {
             }
             int banknoteCount = Math.min(sum / nominal, currentCount);
             sum -= nominal * banknoteCount;
+            result.put(cell.getNominal(), banknoteCount);
             while (banknoteCount != 0) {
                 cashHolder.takeBanknote(cell.getNominal());
                 banknoteCount--;
             }
-
-            result.put(cell.getNominal(), banknoteCount);
         }
 
         if (sum != 0) {
+            //Если выяснили что указанную сумму извлечь нельзя, то возвращаем банкноты в хранилище
+            for (var entry : result.entrySet()) {
+                var banknote = entry.getKey();
+                int count = entry.getValue();
+                while (count > 0) {
+                    cashHolder.addBanknote(banknote);
+                    count--;
+                }
+            }
+
             throw new RuntimeException("Невозможно выдать указанную сумму, попробуйте ввести другую!");
         }
 

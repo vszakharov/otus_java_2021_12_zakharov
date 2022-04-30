@@ -1,7 +1,6 @@
 package ru.otus.hw06.impl;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
 
 import ru.otus.hw06.interfaces.CashHolder;
@@ -9,9 +8,10 @@ import ru.otus.hw06.interfaces.Cell;
 
 public class CashHolderImpl implements CashHolder {
 
-    private final Map<Nominal, Cell> cells = new HashMap<>();
+    private final Map<Nominal, Cell> cells;
 
-    public CashHolderImpl() {
+    public CashHolderImpl(Map<Nominal, Cell> cells) {
+        this.cells = cells;
         //В начальный момент времени ячейки всех номиналов пустые
         for (var nominal : Nominal.values()) {
             var cell = new CellImpl(nominal, 0);
