@@ -69,7 +69,7 @@ public class MyCache<K, V> implements HwCache<K, V> {
     }
 
     private void start() {
-        new Thread(
+        var thread = new Thread(
             () -> {
                 while (true) {
                     try {
@@ -82,6 +82,8 @@ public class MyCache<K, V> implements HwCache<K, V> {
                     }
                 }
             }
-        ).start();
+        );
+        thread.setDaemon(true);
+        thread.start();
     }
 }
