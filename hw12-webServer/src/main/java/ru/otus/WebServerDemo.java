@@ -1,6 +1,4 @@
-package ru.otus.demo;
-
-import java.util.List;
+package ru.otus;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -16,11 +14,9 @@ import ru.otus.crm.dbmigrations.MigrationsExecutorFlyway;
 import ru.otus.crm.model.Address;
 import ru.otus.crm.model.Client;
 import ru.otus.crm.model.Phone;
-import ru.otus.crm.service.DBServiceClient;
 import ru.otus.crm.service.DbServiceClientImpl;
 import ru.otus.helpers.FileSystemHelper;
 import ru.otus.server.ClientsWebServer;
-import ru.otus.server.ClientsWebServerSimple;
 import ru.otus.server.ClientsWebServerWithBasicSecurity;
 import ru.otus.services.TemplateProcessor;
 import ru.otus.services.TemplateProcessorImpl;
