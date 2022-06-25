@@ -1,0 +1,60 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <script>
+        function saveClient() {
+            const name = document.getElementById("name").value
+            const street = document.getElementById("address").value;
+            const phones = Array.from(document.getElementById("phones").children)
+                .map(x => { return { number: x.value } });
+            const client = { name, address : { street }, phones };
+
+            fetch("/api/client", {
+                method: "POST",
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(client)
+            }).then(_ => {
+                if (confirm('Client successfully saved. Reload page?'))
+                    window.location.reload();
+            });
+        }
+        function addPhone() {
+            const phone = document.createElement('input');
+            phone.placeholder = "Введите телефон";
+            document.getElementById("phones").appendChild(phone);
+        }
+    </script>
+    <title>Клиенты</title>
+</head>
+<h4>Список клиентов</h4>
+<table style="width: 500px">
+    <thead>
+    <tr>
+        <td style="width: 50px">Id</td>
+        <td style="width: 150px">Имя</td>
+        <td style="width: 150px">Адрес</td>
+        <td style="width: 150px">Телефоны</td>
+    </tr>
+    </thead>
+    <tbody>
+    <#foreach client in clients>
+    <tr>
+        <td>${client.id}</td>
+        <td>${client.name}</td>
+        <td>${client.address.street}</td>
+        <td>
+            <#list client.phones as phone>
+                ${phone.number}
+            </#list>
+        </td>
+    </tr>
+    </#foreach>
+    </tbody>
+</table>
+<h4>Создать клиента</h4>
+<input type="text" id = "name" value="" placeholder="Введите имя">
+<input type="text" id = "address" value="" placeholder="Введите адрес">
+<div id = "phones"></div>
+<button onclick="addPhone()">Добавить телефон</button>
+<button onclick="saveClient()">Сохранить</button>
+</body>
+</html>
