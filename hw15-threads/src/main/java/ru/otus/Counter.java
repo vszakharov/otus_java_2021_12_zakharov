@@ -9,7 +9,7 @@ public class Counter {
     private static final int START = 1;
     private static final int END = 10;
 
-    int count = START;
+    private int count = START;
     private String currentThread = "thread-0";
     private Direction direction = Direction.UP;
 
