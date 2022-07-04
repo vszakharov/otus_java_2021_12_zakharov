@@ -36,6 +36,10 @@ allprojects {
             dependency("org.testcontainers:postgresql:${Versions.testcontainers}")
 
             dependency("com.google.code.gson:gson:${Versions.gson}")
+
+            dependency("io.grpc:grpc-netty:${Versions.grpc}")
+            dependency("io.grpc:grpc-protobuf:${Versions.grpc}")
+            dependency("io.grpc:grpc-stub:${Versions.grpc}")
         }
     }
 
