@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Create client</title>
+
+    <script>
+        function saveClient() {
+            const name = document.getElementById("name").value
+            const street = document.getElementById("address").value;
+            const phones = Array.from(document.getElementById("phones").children)
+                .map(x => { return { number: x.value } });
+            const client = { name, address : { street }, phones };
+
+            fetch("/api/client", {
+                method: "POST",
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(client)
+            }).then(_ => location.href = "/");
+        }
+        function addPhone() {
+            const phone = document.createElement('input');
+            document.getElementById("phones").appendChild(phone);
+        }
+    </script>
+</head>
+<body>
+
+<form id="create-form" accept-charset="utf-8">
+    <h1>New User:</h1>
+
+    <div class="row">
+        <label for="name">Name:</label>
+        <input id="name" type="text"/>
+    </div>
+    <div class="row">
+        <label for="address">Address:</label>
+        <input id="address" type="text"/>
+    </div>
+    <label for="phones">Phones:</label>
+    <div class="row" id="phones"></div>
+    <div class="row">
+        <button type="button" onclick="addPhone()">Add Phone</button>
+    </div>
+    <div class="row">
+        <button type="button" onclick="saveClient()">Save</button>
+    </div>
+</form>
+
+</body>
+</html>
