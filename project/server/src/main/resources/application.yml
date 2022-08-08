@@ -1,0 +1,29 @@
+server:
+  port: 8081
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5430/documentDB
+    username: usr
+    password: pwd
+  flyway:
+    enabled: true
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+
+
+minio:
+  endpoint: http://localhost:9000
+  accesskey: minio_root_user
+  secretkey: minio_root_password
+  bucketname: my-bucket
+
+auth:
+  jwt:
+    secret: a082eb4729b58443ef107ea65683734b9e021bb90f36ca36107da7e78763a4ec
+
+#logging:
+#  level:
+#    org.springframework.jdbc.core.JdbcTemplate: TRACE

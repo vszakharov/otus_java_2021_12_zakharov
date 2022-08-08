@@ -1,0 +1,6 @@
+qdocker run --rm --name auth-db \
+-e POSTGRES_PASSWORD=admin \
+-e POSTGRES_USER=admin \
+-e POSTGRES_DB=authDB \
+-p 5429:5432 \
+postgres:12

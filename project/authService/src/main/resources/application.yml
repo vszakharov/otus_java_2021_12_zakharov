@@ -1,0 +1,17 @@
+server:
+  port: 8082
+
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5429/authDB
+    username: admin
+    password: admin
+  flyway:
+    enabled: true
+
+
+auth:
+  jwt:
+    secret: a082eb4729b58443ef107ea65683734b9e021bb90f36ca36107da7e78763a4ec
+
